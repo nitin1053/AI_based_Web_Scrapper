@@ -44,7 +44,7 @@ Follow these steps to install and run the project locally:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/your-username/review-scraper.git
+   git clone https://github.com/nitin1053/AI_based_Web_Scrapper.git
    cd review-scraper
 
 2.  **Create a Virtual Environment**:
