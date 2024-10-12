@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Reviews</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Product Reviews</h1>
+        <div id="reviews-container">
+            <!-- Reviews will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Fetch reviews from the API and display them in the HTML
+        async function fetchReviews() {
+            const response = await fetch('/api/reviews?page=YOUR_PRODUCT_PAGE_URL');
+            const data = await response.json();
+
+            const reviewsContainer = document.getElementById('reviews-container');
+            if (data.reviews && data.reviews.length > 0) {
+                data.reviews.forEach(review => {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.classList.add('review');
+
+                    reviewElement.innerHTML = `
+                        <h3>${review.title}</h3>
+                        <p><strong>Reviewer:</strong> ${review.reviewer}</p>
+                        <p><strong>Rating:</strong> ${review.rating}/5</p>
+                        <p>${review.body}</p>
+                    `;
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            } else {
+                reviewsContainer.innerHTML = '<p>No reviews found.</p>';
+            }
+        }
+
+        // Call the fetchReviews function on page load
+        fetchReviews();
+    </script>
+
+    <style>
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+
+        }
+
+        body 
+        {
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        /* Container for the whole page */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Page title styling */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Individual review styling */
+        .review {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .review:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Review title styling */
+        .review h3 {
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            color: #2c3e50;
+        }
+
+        /* Reviewer and rating */
+        .review p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .review p strong {
+            color: #2980b9;
+        }
+
+    </style>
+</body>
+</html>
